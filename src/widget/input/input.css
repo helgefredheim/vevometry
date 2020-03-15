@@ -1,0 +1,21 @@
+.input {
+  display: flex;
+  align-items: center;
+}
+
+.input__label {
+  font-size: 11px;
+}
+
+.input__text {
+  margin: 4px;
+  text-align: center;
+  width: 60px;
+  flex: 1;
+  height: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 11px;
+  outline: none;
+  border: none;
+}
