@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.form--line {
+  background-color: #8989e9;
+  border-radius: 10px;
+  width: 100px;
+}

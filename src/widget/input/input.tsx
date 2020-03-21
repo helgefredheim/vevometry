@@ -1,26 +1,25 @@
 import React, { FunctionComponent } from "react";
 import "./input.css";
-import { setValue } from "../widget-types";
 
-const Input: FunctionComponent<{
-  label: string;
-  value: number;
-  setValue: setValue;
-}> = ({ label, value, setValue }) => {
+const Input: FunctionComponent<React.HTMLProps<HTMLInputElement>> = ({
+  label,
+  value,
+  name,
+  id,
+  onChange
+}) => {
   return (
     <div className="input">
-      <label htmlFor={label} className="input__label">
+      <label htmlFor={id} className="input__label">
         {label}
       </label>
       <input
         className="input__text"
         type="number"
-        name={label}
-        id={label}
+        id={id}
         value={value}
-        onChange={e => {
-          setValue(e.target.value);
-        }}
+        name={name}
+        onChange={onChange}
       />
     </div>
   );

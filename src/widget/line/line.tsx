@@ -1,33 +1,19 @@
 import React, { FunctionComponent } from "react";
 import "./line.css";
 import { getLineLength, getLineStyle } from "./line-utils";
-import Input from "../input/input";
+import { onInputChange, WidgetCoordinates } from "../widget-types";
+import LineForm from "./line-form";
 
-export interface WidgetCoordinates {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
+interface LineProps {
+  point1: WidgetCoordinates;
+  point2: WidgetCoordinates;
+  onChange: onInputChange;
 }
 
-const LineForm: FunctionComponent<{ value: number }> = ({ value }) => {
+const Line: FunctionComponent<LineProps> = ({ point1, point2, onChange }) => {
   return (
-    <div className="form form--line">
-      <Input
-        value={value}
-        label="lengde"
-        setValue={() => {
-          console.log("not implemented");
-        }}
-      />
-    </div>
-  );
-};
-
-const Line: FunctionComponent<WidgetCoordinates> = props => {
-  return (
-    <div className="line" style={getLineStyle(props)}>
-      <LineForm value={getLineLength(props)} />
+    <div className="line" style={getLineStyle(point1, point2)}>
+      <LineForm value={getLineLength(point1, point2)} onChange={onChange} />
     </div>
   );
 };

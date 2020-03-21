@@ -8,11 +8,3 @@
   border-radius: 50%;
   z-index: 1;
 }
-
-.form {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding-left: 10px;
-  padding-right: 10px;
-}
