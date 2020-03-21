@@ -12,4 +12,6 @@ export enum BubbleId {
 
 export type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
+export type BubbleDragEvent = React.DragEvent<HTMLDivElement>;
+
 export type onInputChange = (e: InputChangeEvent) => void;

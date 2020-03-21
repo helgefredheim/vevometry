@@ -21,26 +21,6 @@ const Widget: FunctionComponent = () => {
     y: 400
   });
 
-  const getKeyValue = (event: InputChangeEvent): any => {
-    return {
-      [event.currentTarget.name]: Number(event.currentTarget.value)
-    };
-  };
-
-  const onFieldChangeOne: onInputChange = (event: InputChangeEvent) => {
-    setBubbleOneState({
-      ...bubbleOne,
-      ...getKeyValue(event)
-    });
-  };
-
-  const onFieldChangeTwo: onInputChange = (event: InputChangeEvent) => {
-    setBubbleTwoState({
-      ...bubbleTwo,
-      ...getKeyValue(event)
-    });
-  };
-
   const onLineChange: onInputChange = (event: InputChangeEvent) => {
     const length = Number(event.currentTarget.value);
     const angle = getAngleInRadians(bubbleOne, bubbleTwo);
@@ -56,14 +36,14 @@ const Widget: FunctionComponent = () => {
     <div className="widget">
       <Bubble
         id={BubbleId.BUBBLE_0}
-        onFieldChange={onFieldChangeOne}
         coordinates={bubbleOne}
+        setCoordinates={setBubbleOneState}
       />
       <Line point1={bubbleOne} point2={bubbleTwo} onChange={onLineChange} />
       <Bubble
         id={BubbleId.BUBBLE_1}
-        onFieldChange={onFieldChangeTwo}
         coordinates={bubbleTwo}
+        setCoordinates={setBubbleTwoState}
       />
     </div>
   );
