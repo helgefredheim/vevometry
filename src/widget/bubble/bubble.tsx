@@ -1,42 +1,38 @@
 import React, { FunctionComponent } from "react";
-import {
-  BubbleData,
-  BubbleId,
-  Field,
-  FieldsRecord,
-  setFieldValue
-} from "../widget-types";
+import { BubbleId } from "../widget-types";
 import Input from "../input/input";
 import "./bubble.css";
 
 interface Props {
-  x: Field;
-  y: Field;
-  setValue: setFieldValue;
+  x: number;
+  y: number;
+  setX: any;
+  setY: any;
 }
 
-const BubbleForm: FunctionComponent<Props> = ({ x, y, setValue }) => {
+const BubbleForm: FunctionComponent<Props> = ({ x, y, setX, setY }) => {
   return (
     <div className="form">
-      <Input {...x} setValue={setValue} />
-      <Input {...y} setValue={setValue} />
+      <Input value={x} setValue={setX} label="x" />
+      <Input value={y} setValue={setY} label="y" />
     </div>
   );
 };
 
-const getStyle = (fields: FieldsRecord): any => {
-  return { left: `${fields.x.value}px`, top: `${fields.y.value}px` };
+const getStyle = (x: number, y: number): any => {
+  return { left: `${x}px`, top: `${y}px` };
 };
 
 const Bubble: FunctionComponent<{
   id: BubbleId;
-  data: BubbleData;
-  setValue: setFieldValue;
-}> = ({ id, data, setValue }) => {
-  const { fields } = data;
+  x: number;
+  y: number;
+  setX: any;
+  setY: any;
+}> = ({ id, x, y, setX, setY }) => {
   return (
-    <div className="bubble" style={getStyle(fields)}>
-      <BubbleForm x={fields.x} y={fields.y} setValue={setValue} />
+    <div className="bubble" style={getStyle(x, y)}>
+      <BubbleForm x={x} y={y} setX={setX} setY={setY} />
     </div>
   );
 };

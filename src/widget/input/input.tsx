@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from "react";
-import { setFieldValue } from "../widget-types";
 import "./input.css";
+import { setValue } from "../widget-types";
 
 const Input: FunctionComponent<{
   label: string;
-  value: string;
-  name: string;
-  setValue: setFieldValue;
-}> = ({ label, value, name, setValue }) => {
+  value: number;
+  setValue: setValue;
+}> = ({ label, value, setValue }) => {
   return (
     <div className="input">
       <label htmlFor={label} className="input__label">
@@ -16,11 +15,11 @@ const Input: FunctionComponent<{
       <input
         className="input__text"
         type="number"
-        name={name}
-        id={name}
+        name={label}
+        id={label}
         value={value}
         onChange={e => {
-          setValue(name, e.target.value);
+          setValue(e.target.value);
         }}
       />
     </div>

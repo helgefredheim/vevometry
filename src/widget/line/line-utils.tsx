@@ -1,41 +1,29 @@
-import { BubbleData, BubbleId, WidgetValues } from "../widget-types";
 import { CSSProperties } from "react";
-import { getBubbleData } from "../widget-utils";
+import { WidgetCoordinates } from "./line";
 
-const getValue = (bubble: BubbleData, field: string) => {
-  return Number(bubble.fields[field].value);
+const getXLength = (data: WidgetCoordinates): number => {
+  return data.x1 - data.x2;
 };
 
-const getSide = (data: WidgetValues, field: string): number => {
-  const bubble0 = getBubbleData(BubbleId.BUBBLE_0, data);
-  const bubble1 = getBubbleData(BubbleId.BUBBLE_1, data);
-  return getValue(bubble0, field) - getValue(bubble1, field);
+const getYLength = (data: WidgetCoordinates): number => {
+  return data.y1 - data.y2;
 };
 
-const getXLength = (data: WidgetValues): number => {
-  return getSide(data, "x");
-};
-
-const getYLength = (data: WidgetValues): number => {
-  return getSide(data, "y");
-};
-
-export const getLineLength = (data: WidgetValues): number => {
+export const getLineLength = (data: WidgetCoordinates): number => {
   const side1 = getXLength(data);
   const side2 = getYLength(data);
 
   return Math.floor(Math.sqrt(side1 * side1 + side2 * side2));
 };
 
-const getAngle = (data: WidgetValues): number => {
+const getAngle = (data: WidgetCoordinates): number => {
   return (Math.atan2(getYLength(data), getXLength(data)) * 180) / Math.PI + 180;
 };
 
-export const getLineStyle = (data: WidgetValues): CSSProperties => {
-  const bubble0 = getBubbleData(BubbleId.BUBBLE_0, data);
+export const getLineStyle = (data: WidgetCoordinates): CSSProperties => {
   return {
-    top: `${Number(bubble0.fields.y.value) + 50}px`,
-    left: `${Number(bubble0.fields.x.value) + 50}px`,
+    top: `${data.x1 + 50}px`,
+    left: `${data.y1 + 50}px`,
     width: `${getLineLength(data)}px`,
     transform: `rotate(${getAngle(data)}deg)`
   };
