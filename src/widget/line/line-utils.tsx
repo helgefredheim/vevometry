@@ -16,8 +16,14 @@ export const getLineLength = (data: WidgetCoordinates): number => {
   return Math.floor(Math.sqrt(side1 * side1 + side2 * side2));
 };
 
+const degreesToRadians = (degrees: number): number => {
+  return (degrees * Math.PI) / 180;
+};
+
 const getAngle = (data: WidgetCoordinates): number => {
-  return (Math.atan2(getYLength(data), getXLength(data)) * 180) / Math.PI + 180;
+  const degrees =
+    (Math.atan2(getYLength(data), getXLength(data)) * 180) / Math.PI + 180;
+  return degreesToRadians(degrees);
 };
 
 export const getLineStyle = (data: WidgetCoordinates): CSSProperties => {
@@ -25,6 +31,6 @@ export const getLineStyle = (data: WidgetCoordinates): CSSProperties => {
     top: `${data.x1 + 50}px`,
     left: `${data.y1 + 50}px`,
     width: `${getLineLength(data)}px`,
-    transform: `rotate(${getAngle(data)}deg)`
+    transform: `rotate(${getAngle(data)}rad)`
   };
 };
