@@ -1,27 +1,21 @@
 import { CSSProperties } from "react";
-import { WidgetCoordinates } from "../widget-types";
+import { BubbleProps } from "../widget-types";
 
 const getLength = (a: number, b: number) => {
   return a - b;
 };
 
-const getXLength = (
-  point1: WidgetCoordinates,
-  point2: WidgetCoordinates
-): number => {
+const getXLength = (point1: BubbleProps, point2: BubbleProps): number => {
   return getLength(point2.x, point1.x);
 };
 
-const getYLength = (
-  point1: WidgetCoordinates,
-  point2: WidgetCoordinates
-): number => {
+const getYLength = (point1: BubbleProps, point2: BubbleProps): number => {
   return getLength(point2.y, point1.y);
 };
 
 export const getLineLength = (
-  point1: WidgetCoordinates,
-  point2: WidgetCoordinates
+  point1: BubbleProps,
+  point2: BubbleProps
 ): number => {
   const side1 = getXLength(point1, point2);
   const side2 = getYLength(point1, point2);
@@ -34,8 +28,8 @@ const degreesToRadians = (degrees: number): number => {
 };
 
 export const getAngleInRadians = (
-  point1: WidgetCoordinates,
-  point2: WidgetCoordinates
+  point1: BubbleProps,
+  point2: BubbleProps
 ): number => {
   const degrees =
     (Math.atan2(getYLength(point1, point2), getXLength(point1, point2)) * 180) /
@@ -44,8 +38,8 @@ export const getAngleInRadians = (
 };
 
 export const getLineStyle = (
-  point1: WidgetCoordinates,
-  point2: WidgetCoordinates
+  point1: BubbleProps,
+  point2: BubbleProps
 ): CSSProperties => {
   return {
     top: `${point1.y + 50}px`,

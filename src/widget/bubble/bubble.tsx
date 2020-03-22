@@ -1,55 +1,50 @@
-import React, { CSSProperties, FunctionComponent, useState } from "react";
-import {
-  BubbleDragEvent,
-  BubbleId,
-  InputChangeEvent,
-  WidgetCoordinates
-} from "../widget-types";
+import React, { CSSProperties, FunctionComponent } from "react";
+import { InputChangeEvent, BubbleProps, onInputChange } from "../widget-types";
 import "./bubble.css";
 import BubbleForm from "./bubble-form";
 
-const getBubbleStyle = (coordinates: WidgetCoordinates): CSSProperties => {
-  return { left: `${coordinates.x}px`, top: `${coordinates.y}px` };
+const getBubbleStyle = (props: BubbleProps): CSSProperties => {
+  return {
+    left: `${props.x}px`,
+    top: `${props.y}px`,
+    cursor: props.dragMode ? "grabbing" : "grab"
+  };
 };
 
 const Bubble: FunctionComponent<{
-  id: BubbleId;
-  coordinates: WidgetCoordinates;
-  setCoordinates?: any;
-}> = ({ id, coordinates, setCoordinates }) => {
-  const [offset, setOffset] = useState<WidgetCoordinates>({ x: 0, y: 0 });
-  const onFieldChange = (event: InputChangeEvent) => {
-    setCoordinates({
-      ...coordinates,
+  bubbleProps: BubbleProps;
+  setState?: any;
+  setOffset?: any;
+}> = ({ bubbleProps, setState, setOffset }) => {
+  const onFieldChange: onInputChange = (event: InputChangeEvent): void => {
+    setState({
+      ...bubbleProps,
       [event.currentTarget.name]: Number(event.currentTarget.value)
+    });
+  };
+  const setDragMode = (dragMode: boolean): void => {
+    setState({
+      ...bubbleProps,
+      dragMode
     });
   };
 
   return (
     <div
       className="bubble"
-      draggable="true"
-      style={getBubbleStyle(coordinates)}
-      onDragStart={(event: BubbleDragEvent) => {
+      style={getBubbleStyle(bubbleProps)}
+      onMouseDown={(event: React.MouseEvent<HTMLDivElement>) => {
+        setDragMode(true);
         setOffset({
-          x: coordinates.x - event.clientX,
-          y: coordinates.y - event.clientY
+          x: bubbleProps.x - event.clientX,
+          y: bubbleProps.y - event.clientY
         });
       }}
-      onDrag={(event: BubbleDragEvent) => {
-        if (event.clientX !== 0 && event.clientY !== 0) {
-          setCoordinates({
-            x: event.clientX + offset.x,
-            y: event.clientY + offset.y
-          });
-        }
+      onMouseUp={() => {
+        setDragMode(false);
       }}
     >
-      <BubbleForm
-        coordinates={coordinates}
-        onFieldChange={onFieldChange}
-        id={id}
-      />
+      <BubbleForm bubbleProps={bubbleProps} onFieldChange={onFieldChange} />
     </div>
   );
 };

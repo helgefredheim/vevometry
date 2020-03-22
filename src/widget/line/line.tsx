@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 import "./line.css";
 import { getLineLength, getLineStyle } from "./line-utils";
-import { onInputChange, WidgetCoordinates } from "../widget-types";
+import { onInputChange, BubbleProps } from "../widget-types";
 import LineForm from "./line-form";
 
 interface LineProps {
-  point1: WidgetCoordinates;
-  point2: WidgetCoordinates;
+  point1: BubbleProps;
+  point2: BubbleProps;
   onChange: onInputChange;
 }
 

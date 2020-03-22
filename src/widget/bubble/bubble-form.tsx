@@ -1,34 +1,32 @@
 import React, { FunctionComponent } from "react";
-import { onInputChange, WidgetCoordinates } from "../widget-types";
+import { onInputChange, BubbleProps } from "../widget-types";
 import Input from "../input/input";
 import Form from "../form/form";
 
 interface BubbleFormProps {
-  coordinates: WidgetCoordinates;
+  bubbleProps: BubbleProps;
   onFieldChange: onInputChange;
-  id: string;
 }
 
 const BubbleForm: FunctionComponent<BubbleFormProps> = ({
-  coordinates,
-  onFieldChange,
-  id
+  bubbleProps,
+  onFieldChange
 }) => {
   return (
     <Form>
       <Input
-        value={coordinates.x}
+        value={bubbleProps.x}
         label="x"
         name="x"
         onChange={onFieldChange}
-        id={`${id}_x`}
+        id={`${bubbleProps.id}_x`}
       />
       <Input
-        value={coordinates.y}
+        value={bubbleProps.y}
         label="y"
         name="y"
         onChange={onFieldChange}
-        id={`${id}_y`}
+        id={`${bubbleProps.id}_y`}
       />
     </Form>
   );

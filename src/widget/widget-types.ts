@@ -5,9 +5,14 @@ export interface WidgetCoordinates {
   y: number;
 }
 
+export interface BubbleProps extends WidgetCoordinates {
+  dragMode: boolean;
+  id: BubbleId;
+}
+
 export enum BubbleId {
-  BUBBLE_0 = "bubble-0",
-  BUBBLE_1 = "bubble-1"
+  BUBBLE_1 = "bubble-1",
+  BUBBLE_2 = "bubble-2"
 }
 
 export type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
