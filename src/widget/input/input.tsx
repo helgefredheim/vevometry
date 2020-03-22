@@ -1,26 +1,13 @@
 import React, { FunctionComponent } from "react";
 import "./input.css";
 
-const Input: FunctionComponent<React.HTMLProps<HTMLInputElement>> = ({
-  label,
-  value,
-  name,
-  id,
-  onChange
-}) => {
+const Input: FunctionComponent<React.HTMLProps<HTMLInputElement>> = props => {
   return (
     <div className="input">
-      <label htmlFor={id} className="input__label">
-        {label}
+      <label htmlFor={props.id} className="input__label">
+        {props.label}
       </label>
-      <input
-        className="input__text"
-        type="number"
-        id={id}
-        value={value}
-        name={name}
-        onChange={onChange}
-      />
+      <input className="input__text" type="number" {...props} />
     </div>
   );
 };
