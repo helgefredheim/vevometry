@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import Bubble from "./bubble/bubble";
 import "./widget.css";
 import {
-  BubbleId,
+  BUBBLE_ID,
   BubbleProps,
   InputChangeEvent,
   onInputChange,
@@ -16,14 +16,14 @@ const Widget: FunctionComponent = () => {
     x: 124,
     y: 19,
     dragMode: false,
-    id: BubbleId.BUBBLE_1
+    id: BUBBLE_ID.BUBBLE_1
   });
 
   const [bubbleTwo, setBubbleTwoState] = useState<BubbleProps>({
     x: 303,
     y: 400,
     dragMode: false,
-    id: BubbleId.BUBBLE_2
+    id: BUBBLE_ID.BUBBLE_2
   });
 
   const [offset, setOffset] = useState<WidgetCoordinates>({ x: 0, y: 0 });
@@ -40,28 +40,27 @@ const Widget: FunctionComponent = () => {
     });
   };
 
-  return (
-    <div
-      className="widget"
-      onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => {
-        const xy: WidgetCoordinates = {
-          x: event.clientX + offset.x,
-          y: event.clientY + offset.y
-        };
+  const dragBubble = (event: React.MouseEvent<HTMLDivElement>) => {
+    const xy: WidgetCoordinates = {
+      x: event.clientX + offset.x,
+      y: event.clientY + offset.y
+    };
 
-        if (bubbleOne.dragMode) {
-          setBubbleOneState({
-            ...bubbleOne,
-            ...xy
-          });
-        } else if (bubbleTwo.dragMode) {
-          setBubbleTwoState({
-            ...bubbleTwo,
-            ...xy
-          });
-        }
-      }}
-    >
+    if (bubbleOne.dragMode) {
+      setBubbleOneState({
+        ...bubbleOne,
+        ...xy
+      });
+    } else if (bubbleTwo.dragMode) {
+      setBubbleTwoState({
+        ...bubbleTwo,
+        ...xy
+      });
+    }
+  };
+
+  return (
+    <div className="widget" onMouseMove={dragBubble}>
       <Bubble
         bubbleProps={bubbleOne}
         setState={setBubbleOneState}

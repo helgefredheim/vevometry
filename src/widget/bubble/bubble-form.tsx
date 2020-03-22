@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { onInputChange, BubbleProps } from "../widget-types";
+import { onInputChange, BubbleProps, WidgetCoordinates } from "../widget-types";
 import Input from "../input/input";
 import Form from "../form/form";
 
@@ -12,22 +12,25 @@ const BubbleForm: FunctionComponent<BubbleFormProps> = ({
   bubbleProps,
   onFieldChange
 }) => {
+  const fields: WidgetCoordinates = {
+    x: bubbleProps.x,
+    y: bubbleProps.y
+  };
   return (
     <Form>
-      <Input
-        value={bubbleProps.x}
-        label="x"
-        name="x"
-        onChange={onFieldChange}
-        id={`${bubbleProps.id}_x`}
-      />
-      <Input
-        value={bubbleProps.y}
-        label="y"
-        name="y"
-        onChange={onFieldChange}
-        id={`${bubbleProps.id}_y`}
-      />
+      {Object.keys(fields).map((field: string) => {
+        const id = `${bubbleProps.id}_${field}`;
+        return (
+          <Input
+            value={fields[field as keyof WidgetCoordinates]}
+            label={field}
+            name={field}
+            onChange={onFieldChange}
+            id={id}
+            key={id}
+          />
+        );
+      })}
     </Form>
   );
 };
